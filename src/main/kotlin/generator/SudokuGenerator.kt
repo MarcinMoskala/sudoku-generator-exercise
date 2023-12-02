@@ -14,10 +14,19 @@ class SudokuGenerator(
     constructor(vararg methods: SudokuRemoverMethod) : this(methods.toList())
 
     // Generate first using removers, and then try to remove until solver is not able to solve
-    fun generate(solver: SudokuSolver, minFilled: Int = 0): SudokuState {
-        var state = generate(minFilled).sudoku
+    fun generate(solver: SudokuSolver, minFilled: Int = 0): GeneratorResult {
+        val firstResult = generate(minFilled)
+        var state = firstResult.sudoku
+        var solverUser = 0
+        fun result() = GeneratorResult(
+            sudoku = state,
+            solved = firstResult.solved,
+            methodsUsedCounter = firstResult.methodsUsedCounter +
+                    mapOf("solver" to solverUser).takeIf { solverUser > 0 }.orEmpty()
+        )
+
         while (true) {
-            if (state.countFilled() <= minFilled) return state
+            if (state.countFilled() <= minFilled) return result()
             state = state.cells
                 .filterFilledCells()
                 .map { (pos, _) -> pos }
@@ -25,7 +34,8 @@ class SudokuGenerator(
                 .asSequence()
                 .map { state.withEmptyUpdatePoss(it) }
                 .firstOrNull { solver.solve(it).isSolved }
-                ?: return state
+                ?.also { solverUser++ }
+                ?: return result()
         }
     }
 
@@ -33,7 +43,7 @@ class SudokuGenerator(
         val solved = generateSolved()
         var state = solved
         var methodsUsedCounter = methods.associate { it.name to 0 }
-        fun result() = GeneratorResult(state, solved, methodsUsedCounter,)
+        fun result() = GeneratorResult(state, solved, methodsUsedCounter)
         while (true) {
             val (newState, method) = makeStep(state) ?: return result()
             state = newState

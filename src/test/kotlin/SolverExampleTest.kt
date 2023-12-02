@@ -3,7 +3,7 @@ import solver.NakedPair
 import solver.SudokuSolver
 import kotlin.test.assertEquals
 
-class SolverExamples {
+class SolverExampleTest {
     @Test
     fun nakedPair() {
         val sudoku = SudokuState.from(

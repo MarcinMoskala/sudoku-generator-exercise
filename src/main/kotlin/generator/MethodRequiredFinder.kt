@@ -12,7 +12,7 @@ class MethodRequiredFinder(
         require(method in solver.methods)
         while (true) {
             print(".")
-            val sudoku = generator.generate(solver)
+            val sudoku = generator.generate(solver).sudoku
             val solverWithoutMethod = solver.withoutMethod(method)
             val resultAfterUsingOtherMethods = solverWithoutMethod.solve(sudoku)
             if (resultAfterUsingOtherMethods.isSolved) continue
@@ -33,7 +33,7 @@ class MethodRequiredFinder(
         require(method in solver.methods)
         while (true) {
             print(".")
-            val sudoku = generator.generate(solver)
+            val sudoku = generator.generate(solver).sudoku
             val solverWithoutMethod = solver.withoutMethod(method)
             val resultAfterUsingOtherMethods = solverWithoutMethod.solve(sudoku)
             if (resultAfterUsingOtherMethods.isSolved) continue
