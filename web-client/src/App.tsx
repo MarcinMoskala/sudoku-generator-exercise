@@ -1,13 +1,13 @@
-import {Nullable, SudokuSolver} from 'sudoku-generator'
+import {Nullable, SudokuGenerator} from 'sudoku-generator'
 import {useMemo} from "react";
 
 const App = () => {
-  // const solver = useMemo(() => new SudokuSolver(), [])
-  // const result = useMemo(() => solver.generateSudoku(), [])
+  const solver = useMemo(() => new SudokuGenerator(), [])
+  const result = useMemo(() => solver.generateSudoku(), [])
   
   return <div>
-    {/*<Sudoku sudoku={result.unsolved} />*/}
-    {/*<Sudoku sudoku={result.solved} />*/}
+    <Sudoku sudoku={result.sudoku} />
+    <Sudoku sudoku={result.solved} />
   </div>
 }
 

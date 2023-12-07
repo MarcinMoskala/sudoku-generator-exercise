@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.8.0"
+    kotlin("multiplatform") version "1.8.0"
     application
 }
 
@@ -10,19 +10,24 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-    testImplementation(kotlin("test"))
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
 
 kotlin {
-    jvmToolchain(11)
-}
-
-application {
-    mainClass.set("MainKt")
+   jvm {}
+   js(IR) {
+       moduleName = "sudoku-generator"
+       browser()
+       binaries.library()
+   }
+   sourceSets {
+       val commonMain by getting {
+           dependencies {
+               // common dependencies
+           }
+       }
+       val commonTest by getting
+       val jvmMain by getting
+       val jvmTest by getting
+       val jsMain by getting
+       val jsTest by getting
+   }
 }
