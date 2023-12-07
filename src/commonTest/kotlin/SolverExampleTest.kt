@@ -1,6 +1,6 @@
-import org.junit.jupiter.api.Test
 import solver.NakedPair
 import solver.SudokuSolver
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SolverExampleTest {

@@ -2,11 +2,11 @@ import generator.RemoveLastMissingInRowColSquare
 import generator.RemoveOnlyPossibilityForCell
 import generator.RemoveOnlyPossibleForColRowSquare
 import generator.SudokuGenerator
-import org.junit.jupiter.api.Test
 import solver.LastMissingInRowColSquare
 import solver.OnlyPossibilityForCell
 import solver.OnlyPossibleForColRowSquare
 import solver.SudokuSolver
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -23,7 +23,7 @@ class SudokuE2ETest {
     )
 
     @Test
-    fun `generated sudoku solution is correct`() {
+    fun generated_sudoku_solution_is_correct() {
         repeat(10) {
             val generationResult = generator.generate()
             assertTrue(generationResult.solved.isSolved())
@@ -31,7 +31,7 @@ class SudokuE2ETest {
     }
 
     @Test
-    fun `generated and solved are the same`() {
+    fun generated_and_solved_are_the_same() {
         repeat(10) {
             val generationResult = generator.generate()
             val solvedResult = solver.solve(generationResult.sudoku)

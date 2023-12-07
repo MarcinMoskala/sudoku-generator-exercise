@@ -12,22 +12,27 @@ repositories {
 
 
 kotlin {
-   jvm {}
-   js(IR) {
-       moduleName = "sudoku-generator"
-       browser()
-       binaries.library()
-   }
-   sourceSets {
-       val commonMain by getting {
-           dependencies {
-               // common dependencies
-           }
-       }
-       val commonTest by getting
-       val jvmMain by getting
-       val jvmTest by getting
-       val jsMain by getting
-       val jsTest by getting
-   }
+    jvm {}
+    js(IR) {
+        moduleName = "sudoku-generator"
+        browser()
+        binaries.library()
+    }
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+            }
+        }
+        val jvmMain by getting
+        val jvmTest by getting
+        val jsMain by getting
+        val jsTest by getting
+    }
 }
